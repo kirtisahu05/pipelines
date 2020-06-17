@@ -8,7 +8,7 @@ resources:
   - name: ns_aql
     type: Aql
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       query: 'items.find({"$and":[{"artifact.module.build.name":{"$eq":"native_pipeline"}},{"artifact.module.build.number":{"$eq":"8"}}]})'     
       #addedProperties:
       mappings:
@@ -22,44 +22,44 @@ resources:
   - name: ns_dockerbuild_gitRepo
     type: GitRepo
     configuration:
-      path: vishnurao12/sample-script
-      gitProvider: git_v
+      path: kirtisahu05/sample-script
+      gitProvider: github_kirti
       branches: 
         include: master
 
   - name: ns_buildInfo
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: master_test_buildInfo
       buildNumber: 123
   
   - name: ns_promotedInfo
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: master_test_promotedInfo
       buildNumber: 1
 
   - name: artifactory_go_example
     type: GitRepo
     configuration:
-      path: vishnurao12/project-examples
+      path: kirtisahu05/project-examples
       branches:
         include: master
-      gitProvider: git_v
+      gitProvider: github_kirti
   - name: artifactory_go_exampletest
     type: GitRepo
     configuration:
-      path: vishnurao12/project-examples
+      path: kirtisahu05/project-examples
       branches:
         include: master
-      gitProvider: git_v
+      gitProvider: github_kirti
 
   - name: artifactory_go_module_example
     type: GitRepo
     configuration:
-      path: vishnurao12/artifactory-go-example
+      path: kirtisahu05/artifactory-go-example
       branches:
         include: master
       gitProvider: git_v
@@ -67,28 +67,28 @@ resources:
   - name: go_build_info_publish_moduletest
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: go_example_module_publish_varsha
       buildNumber: 332
       
   - name: go_build_info_publishtest
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: go_example_build_publish_varsha
       buildNumber: 32
   
   - name: promoted_go_build_info_go_publishtest
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: promote_go_build_info_publish
       buildNumber: 35
 
   - name: promoted_build_info_gradle
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: promotoed-full-gradle-native
       buildNumber: 1
 
@@ -96,33 +96,33 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: git_v
-      path: vishnurao12/project-examples
+      path: kirtisahu05/project-examples
 
   - name: build_info_gradle
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: full-gradle-native
       buildNumber: 1
 
   - name: mvnBuild_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: mvn_sample_build_master_test
       buildNumber: 9
 
   - name: mvnBuild_infoScaned
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: mvn_scan_master_test
       buildNumber: 2
       
   - name: mvnBuild_infopromoted
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: mvn_promote_build_master_test
       buildNumber: 3
       
@@ -130,25 +130,25 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: git_v
-      path: vishnurao12/project-examples
+      path: kirtisahu05/project-examples
 
   - name: npmHelloWorld_repo
     type: GitRepo
     configuration:
-      path: vishnurao12/npmHelloWorld
+      path: kirtisahu05/npmHelloWorld
       gitProvider: git_v
 
   - name: npm_build_info_publish1
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: npm_publish
       buildNumber: 1
   
   - name: npm_build_info_promoted
     type: BuildInfo
     configuration:
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       buildName: npm+promote
       buildNumber: 1
 
@@ -156,17 +156,17 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: git_v
-      path: vishnurao12/charts
+      path: kirtisahu05/charts
    
   - name: helm_repo
     type: HelmChart
     configuration: 
-      sourceArtifactory: art_v
+      sourceArtifactory: art
       repository: helm-local
       chart: test
       version: 1.0.0
 
-# need to add git_v,art_v,docker_v integration. 
+# need to add git_v,art,docker_v integration. 
 # need to add these repo docker-local,test-generic-local repo
 pipelines:
   - name: Master_test_pipe
@@ -177,7 +177,7 @@ pipelines:
 #         type: Bash
 #         configuration:
 #           integrations:
-#             - name: art_v
+#             - name: art
 #           inputResources:
 #             - name: connecting_resource
 #         execution:
@@ -193,7 +193,7 @@ pipelines:
           dockerImageName: pipe-master.jfrog.info:8082/docker-local/node 
           dockerImageTag: latest
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: ns_dockerbuild_gitRepo 
             - name: connecting_resource
@@ -205,7 +205,7 @@ pipelines:
           autoPublishBuildInfo: false #IMPORTANGT******************* : if this is true then only we need outputResource in DockerPush and no need of publishBuildInfo step
           targetRepository: docker-local #required
           integrations:
-            - name: art_v 
+            - name: art 
           inputSteps:
             - name: To_build_Docker_Image
 
@@ -222,7 +222,7 @@ pipelines:
         configuration:
           targetRepository: test-generic-local
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: ns_buildInfo
           inputSteps:
@@ -241,7 +241,7 @@ pipelines:
             - name: artifactory_go_example
             - name: connecting_resource
           integrations:
-            - name: art_v
+            - name: art
         execution:
           onStart:
             - go version
@@ -253,7 +253,7 @@ pipelines:
             - name: build_go
           targetRepository: test-go-local
           integrations:
-            - name: art_v
+            - name: art
      
       - name: publish_buildtest
         type: PublishBuildInfo
@@ -274,7 +274,7 @@ pipelines:
           targetRepository: test-go-local
           autoPublishBuildInfo: true
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: artifactory_go_module_example
           outputResources:
@@ -285,7 +285,7 @@ pipelines:
         configuration:
           targetRepository: test-generic-local
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: go_build_info_publishtest #go_build_info_publish
           outputResources:
@@ -296,7 +296,7 @@ pipelines:
         configuration:
           targetRepository: test-generic-local
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: go_build_info_publish_moduletest
           outputResources:
@@ -313,7 +313,7 @@ pipelines:
             - name: gradle_repo
             - name: connecting_resource
           integrations:
-            - name: art_v
+            - name: art
         execution:
           onStart:
             - javac -version
@@ -335,7 +335,7 @@ pipelines:
           targetRepository: test-generic-local
           copy: true
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: build_info_gradle
           outputResources:
@@ -352,7 +352,7 @@ pipelines:
             - name: maven_repo
             - name: connecting_resource
           integrations:
-            - name: art_v
+            - name: art
 
         execution:
           onStart:
@@ -389,7 +389,7 @@ pipelines:
             - name: npmHelloWorld_repo
             - name: connecting_resource
           integrations:
-            - name: art_v
+            - name: art
 
       - name: publish_npm
         type: NpmPublish
@@ -398,7 +398,7 @@ pipelines:
           inputSteps:
             - name: build_npm
           integrations:
-            - name: art_v
+            - name: art
 
       - name: publish_build_info
         type: PublishBuildInfo
@@ -419,7 +419,7 @@ pipelines:
             - name: npmHelloWorld_repo
             - name: connecting_resource
           integrations:
-            - name: art_v
+            - name: art
 
       - name: publish_npm_auto_true
         type: NpmPublish
@@ -431,7 +431,7 @@ pipelines:
           outputResources:
             - name: npm_build_info_publish1     # required if autoPublishBuildInfo is true.
           integrations:
-            - name: art_v
+            - name: art
 
 ##################### end of npm_auto_publish ###############################
       - name: promote_build_npm
@@ -439,7 +439,7 @@ pipelines:
         configuration:
           targetRepository: test-generic-local
           integrations:
-            - name: art_v
+            - name: art
           inputResources:
             - name: npm_build_info_publish1
             - name: connecting_resource
