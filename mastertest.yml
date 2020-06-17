@@ -62,7 +62,7 @@ resources:
       path: kirtisahu05/artifactory-go-example
       branches:
         include: master
-      gitProvider: git_v
+      gitProvider: github_kirti
 
   - name: go_build_info_publish_moduletest
     type: BuildInfo
@@ -95,7 +95,7 @@ resources:
   - name: gradle_repo
     type: GitRepo
     configuration:
-      gitProvider: git_v
+      gitProvider: github_kirti
       path: kirtisahu05/project-examples
 
   - name: build_info_gradle
@@ -129,14 +129,14 @@ resources:
   - name: maven_repo
     type: GitRepo
     configuration:
-      gitProvider: git_v
+      gitProvider: github_kirti
       path: kirtisahu05/project-examples
 
   - name: npmHelloWorld_repo
     type: GitRepo
     configuration:
       path: kirtisahu05/npmHelloWorld
-      gitProvider: git_v
+      gitProvider: github_kirti
 
   - name: npm_build_info_publish1
     type: BuildInfo
@@ -152,10 +152,10 @@ resources:
       buildName: npm+promote
       buildNumber: 1
 
-  - name: git_vishnu
+  - name: github_kirtiishnu
     type: GitRepo
     configuration:
-      gitProvider: git_v
+      gitProvider: github_kirti
       path: kirtisahu05/charts
    
   - name: helm_repo
@@ -166,7 +166,7 @@ resources:
       chart: test
       version: 1.0.0
 
-# need to add git_v,art,docker_v integration. 
+# need to add github_kirti,art,docker_v integration. 
 # need to add these repo docker-local,test-generic-local repo
 pipelines:
   - name: Master_test_pipe
@@ -452,7 +452,7 @@ pipelines:
 #           chartPath: stable/tomcat
  
 #           inputResources:
-#             - name: git_vishnu 
+#             - name: github_kirtiishnu 
 #             - name: connecting_resource
 #           outputResources:
 #             - name: helm_repo                  # required
