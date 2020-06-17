@@ -152,7 +152,7 @@ resources:
       buildName: npm+promote
       buildNumber: 1
 
-  - name: github_kirtiishnu
+  - name: gitResou
     type: GitRepo
     configuration:
       gitProvider: github_kirti
